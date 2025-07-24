@@ -1,0 +1,13 @@
+[project]
+name = "pysword"
+version = "0.1.0"
+description = "A basic ML library"
+authors = [{ name="Abimalek Mekuriya", email="abi.mek2005@gmail.com" }]
+dependencies = []
+
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
