@@ -1,4 +1,4 @@
-import func
+from .func import sum as funcSum
 
 class LossFunction():
     def loss(self, output, expected):
@@ -8,4 +8,4 @@ class LeastSquare(LossFunction):
     def loss(self, output, expected):
         diff = output-expected
         mul = diff*diff
-        return func.sum(mul)
+        return funcSum(mul)

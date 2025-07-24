@@ -1,10 +1,9 @@
 from warnings import warn
-from func import AddFunction
-from func import SubFunction 
+from .simplefunc import AddFunction
+from .simplefunc import SubFunction 
 import numpy as np
-from func import MultFunction 
-from func import ReLUFunction 
-from func import EMultFunction 
+from .simplefunc import MultFunction 
+from .simplefunc import EMultFunction 
 
 def binop_wrap(left, right, opp, leftb=True):
     main = left if leftb else right 

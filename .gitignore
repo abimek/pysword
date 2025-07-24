@@ -1,3 +1,4 @@
 pysword.egg-info/
 pysword/__pycache__/
 tests/__pycache__/
+simple_models/__pycache__/
