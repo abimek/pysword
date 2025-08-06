@@ -1,5 +1,3 @@
-from warnings import warn
-import numpy as np
 from .loss import LeastSquare 
 
 class Model():
@@ -24,3 +22,9 @@ class Model():
         data.requires_grad = True
         d = self.forward(data)
         return d, self.loss.loss(d, expected)
+
+    def step(self, coef):
+        for layer in self.layers:
+            for weight in layer.weights():
+                weight.step(coef)
+

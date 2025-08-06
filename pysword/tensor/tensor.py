@@ -1,22 +1,20 @@
-from warnings import warn
-from .simplefunc import AddFunction
-from .simplefunc import SubFunction 
 import numpy as np
-from .simplefunc import MultFunction 
-from .simplefunc import EMultFunction 
+from ..config import get_device
+from ..simplefunc import AddFunction
+from ..simplefunc import SubFunction 
+from ..simplefunc import MultFunction 
+from ..simplefunc import EMultFunction 
 
 def binop_wrap(left, right, opp, leftb=True):
     main = left if leftb else right 
     other = right if leftb else left
+
     if isinstance(other, (float, int)):
-        other = np.array([[other]])
-
+        other = scalar([[other]])
     if isinstance(main, (float, int)):
-        main = np.array([[main]])
-
+        main = scalar([[main]])
     if not isinstance(other, Tensor):
         other = Tensor(other)
-
     if not isinstance(main, Tensor):
         main = Tensor(main)
 
@@ -33,7 +31,7 @@ class Tensor():
         self.gradfunc = gradfunc 
         self.val = val
         if isinstance(val, (int, float)):
-            self.val = np.array([[val]])
+            self.val = scalar(val) 
 
     def step(self, step):
         if self.requires_grad:
@@ -52,16 +50,16 @@ class Tensor():
 
     def backward(self, output=None):
         if output is None:
-            output = Tensor(np.ones(self.val.shape))
+            output = ones(self.val.shape)
         if self.gradfunc is None:
             if not hasattr(self, "grad") or self.grad is None:
-                self.grad = Tensor(np.zeros(self.val.shape))
+                self.grad = zeros(self.val.shape)
             self.grad = self.grad + output
         elif self.requires_grad:
             self.gradfunc.backward(output)
 
     def reset_grads(self):
-        self.grad = Tensor(np.zeros(self.val.shape))
+        self.grad = zeros(self.val.shape)
 
     def __add__(self, other):
         return binop_wrap(self, other, AddFunction)
@@ -84,3 +82,17 @@ class Tensor():
     def __matmul__(self, other):
         return binop_wrap(self, other, MultFunction)
 
+def ones(dim):
+    if get_device() == "cpu":
+        return Tensor(np.ones(dim))
+    return
+
+def zeros(dim):
+    if get_device() == "cpu":
+        return Tensor(np.zeros(dim))
+    return
+
+def scalar(scalar):
+    if get_device() == "cpu":
+        return np.array([[scalar]])
+    

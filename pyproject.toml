@@ -1,13 +1,10 @@
-[project]
-name = "pysword"
-version = "0.1.0"
-description = "A basic ML library"
-authors = [{ name="Abimalek Mekuriya", email="abi.mek2005@gmail.com" }]
-dependencies = []
-
 [build-system]
-requires = ["setuptools", "wheel"]
+requires = ["setuptools>=42", "pybind11>=2.10.0"]
 build-backend = "setuptools.build_meta"
 
 [tool.pytest.ini_options]
 pythonpath = ["."]
+
+[tool.cibuildwheel]
+test-command = "python {project}/tests/test.py"
+test-skip = "*universal2:arm64"

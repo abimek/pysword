@@ -1,5 +1,5 @@
 from . import model 
-from . import tensor
+from .tensor import tensor
 from . import func
 from . import layers
 from . import simplefunc
