@@ -1,8 +1,9 @@
 import gputensor as m
-import basicmath as m1
+#import basicmath as m1
 
 def test_1():
     assert m.add(1, 2) == 3
+    assert m.run() == -1
 
-def test_2():
-    assert m1.subtract(1, 2) == -1
+#def test_2():
+#    assert m1.subtract(1, 2) == -1

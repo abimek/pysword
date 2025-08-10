@@ -4,3 +4,4 @@
 #define MACRO_STRINGIFY(x) STRINGIFY(x)
 
 int add(int i, int j);
+float run();
