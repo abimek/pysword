@@ -1,6 +1,7 @@
 from pysword.tensor import Tensor 
 from .basefunc import Function
 from .config import get_device
+from gputensor import GPUTensor
 import numpy as np
 
 def one_var_func(x, opp):
@@ -18,10 +19,14 @@ class SumFunction(OneValFunction):
     def forward(self, x):
         if get_device() == "cpu":
             return np.sum(x)
+        if get_device() == "gpu":
+            return x.sum()
 
     def backward(self, output):
         if get_device() == "cpu":
             t = Tensor(np.ones(self.x.value().shape))
+        if get_device() == "gpu":
+            t = Tensor(GPUTensor(np.ones(self.x.value().shape)))
         self.x.backward(t*output)
 
 class NormFunction(OneValFunction):

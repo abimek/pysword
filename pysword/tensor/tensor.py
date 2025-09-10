@@ -4,6 +4,7 @@ from ..simplefunc import AddFunction
 from ..simplefunc import SubFunction 
 from ..simplefunc import MultFunction 
 from ..simplefunc import EMultFunction 
+from gputensor import GPUTensor
 
 def binop_wrap(left, right, opp, leftb=True):
     main = left if leftb else right 
@@ -85,14 +86,19 @@ class Tensor():
 def ones(dim):
     if get_device() == "cpu":
         return Tensor(np.ones(dim))
+    if get_device() == "gpu":
+        return Tensor(GPUTensor(dim, np.ones(dim)))
     return
 
 def zeros(dim):
     if get_device() == "cpu":
         return Tensor(np.zeros(dim))
+    if get_device() == "gpu":
+        return Tensor(GPUTensor(dim, np.zeros(dim)))
     return
 
 def scalar(scalar):
     if get_device() == "cpu":
         return np.array([[scalar]])
-    
+    if get_device() == "gpu":
+        return GPUTensor((1, 1), np.array([[scalar]]))

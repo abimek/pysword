@@ -1,4 +1,5 @@
 from pysword.tensor import Tensor 
+from gputensor import GPUTensor
 from .func import relu as ReLU
 from .func import norm as Norm 
 from .config import get_device
@@ -22,11 +23,15 @@ class LinearLayer(Layer):
     def build_weights(self, input_dim):
         if get_device() == "cpu":
             self.lin = Tensor(np.random.random((input_dim, self.output_dim))*.01)
+        elif get_device() == "gpu":
+            self.lin = Tensor(GPUTensor(np.random.random((input_dim, self.output_dim))*.01))
+        print("NOOOOO")
 
     def weights(self):
         return (self.bias, self.lin)
 
     def forward(self, data):
+        print("HEHE")
         return data@self.lin + self.bias
 
 class ReLULayer(Layer):

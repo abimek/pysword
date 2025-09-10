@@ -1,0 +1,12 @@
+name: pysword
+channels:
+  - defaults
+  - conda-forge
+  - nvidia 
+dependencies:
+  - pip
+  - cmake
+  - numpy
+  - pybind11
+  - python=3.11
+  - cuda=12.9

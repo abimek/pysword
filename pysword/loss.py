@@ -6,6 +6,6 @@ class LossFunction():
 
 class LeastSquare(LossFunction):
     def loss(self, output, expected):
-        diff = output-expected
+        diff = output+(-1)*expected
         mul = diff*diff
         return funcSum(mul)
